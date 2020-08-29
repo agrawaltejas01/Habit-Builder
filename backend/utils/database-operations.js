@@ -5,9 +5,11 @@ const habit = require('../schema/habit-schema');
 var addHabit = async (req, res) => {
 
     try {
+
+        var id = new ObjectId();
         await habit.create(
             {
-                _id: new ObjectId(),
+                _id: id,
                 user: req.body.user,
                 title: req.body.title,
                 description: req.body.description,
@@ -25,7 +27,7 @@ var addHabit = async (req, res) => {
 
         console.log(chalk.green("Successful request to POST /habit"));
         console.log(req.body);
-        res.send(true);
+        res.send(id);
     }
     catch (error) {
         console.log(chalk.red("Error in adding habit(POST /habit) for Error : " + error));

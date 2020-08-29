@@ -1,0 +1,119 @@
+<div class="table-responsive">
+    <div>
+        <button (click)="toggleForm()" class="btn btn-primary mt-2 mb-2">
+            Update Goal
+        </button>
+
+        <form class="mb-2" *ngIf="showForm">
+            <div class="form-row">
+
+                <div class="form-group col-md-2">
+                    <label for="newTimeGoal">Time Goal</label>
+                    <input type="number" min="0" name="newTimeGoal" class="form-control" [(ngModel)]="newTimeGoal">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="newFrequencyGoal">Frequency Goal <span class="text-danger"><strong>*</strong></span>
+                    </label>
+                    <input type="number" min="1" name="newFrequencyGoal" class="form-control"
+                        [(ngModel)]="newFrequencyGoal">
+                </div>
+
+                <div class="form-group col-md-2 mt-4" *ngIf="newFrequencyGoal > 0">
+                    <button (click)="addGoal()" class="btn btn-primary mt-2">
+                        Submit
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <table class="table table-bordered">
+        <tr>
+            <th scope="row">
+                Day
+            </th>
+
+            <td class="table-primary">Sunday</td>
+            <td class="table-primary">Monday</td>
+            <td class="table-primary">Tuesday</td>
+            <td class="table-primary">Wednesday</td>
+            <td class="table-primary">Thursday</td>
+            <td class="table-primary">Friday</td>
+            <td class="table-primary">Saturday</td>
+            <td class="table-info mr-2">Goal</td>
+            <td class="table-info mr-2">Progress</td>
+        </tr>
+
+        <tr>
+            <th scope="row">
+                Time
+            </th>
+
+            <td *ngFor="let entry of weeklyJournal; let i = index"
+                [ngClass]="i == currentDay ? 'table-active' : 'table-secondary'">
+                <div *ngIf="entry">
+                    {{entry.time}}
+                </div>
+                <div *ngIf="entry == null && i == currentDay">
+                    <input type="number" min="0" style="width: 50%;" [(ngModel)]="currentTime">
+                </div>
+                <div *ngIf="entry == null && i != currentDay">
+                    0
+                </div>
+            </td>
+
+            <td class="table-secondary ml-2">
+                <div *ngIf="goal; else noGoalTime">
+                    {{goal.time}}
+                </div>
+                <ng-template #noGoalTime>
+                    0
+                </ng-template>
+            </td>
+
+            <td [ngClass]="timeGoal ? 'table-success' : 'table-danger'">
+                {{completedTime}}
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">
+                Frequency
+            </th>
+
+            <td *ngFor="let entry of weeklyJournal; let i = index; "
+                [ngClass]="i == currentDay ? 'table-active' : 'table-secondary'">
+                <div *ngIf="entry">
+                    {{entry.frequency}}
+                </div>
+                <div *ngIf="entry == null && i == currentDay">
+                    <input type="number" min="1" style="width: 50%;" [(ngModel)]="currentFrequency">
+                </div>
+                <div *ngIf="entry == null && i != currentDay">
+                    0
+                </div>
+            </td>
+
+            <td class="table-secondary ml-2">
+                <div *ngIf="goal; else noGoalTime">
+                    {{goal.frequency}}
+                </div>
+                <ng-template #noGoalTime>
+                    0
+                </ng-template>
+            </td>
+
+            <td [ngClass]="frequencyGoal ? 'table-success' : 'table-danger'">
+                {{completedFrequency}}
+            </td>
+        </tr>
+
+        <div *ngIf="!entryAdded && currentFrequency">
+            <button (click)="addJournal()" class="btn btn-primary mt-2">
+                Add in Journal
+            </button>
+        </div>
+    </table>
+
+</div>

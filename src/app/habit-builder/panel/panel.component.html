@@ -1,0 +1,78 @@
+<div class="text-center pb-3 pt-3 mb-2 bg-dark">
+    <h2 class="text-light">Habit Builder</h2>
+</div>
+<div class="container">
+    <div class="body">
+        <button (click)="toggleCreateHabit()" class="btn btn-primary w-100">
+            <h4>Create new Habit</h4>
+        </button>
+        <div *ngIf="creatingHabit">
+            <div class="add-habit-form m-2">
+
+                <form [formGroup]="addHabitForm" (ngSubmit)="addHabit()">
+
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            <input required formControlName="title" type="text" class="form-control mb-2 mt-2"
+                                id="title" placeholder="Title">
+                        </div>
+
+                        <label for="description" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea required formControlName="description" type="text" class="form-control  mb-2 mt-2"
+                                id="description" placeholder="Description"> </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="time">Time(Minutes)</label>
+                            <input formControlName="time" type="number" min="0" class="form-control" 
+                            id="time" placeholder="0">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="frequency">Frequency</label>
+                            <input formControlName="frequency" type="number" min="1" class="form-control" 
+                            id="time"
+                                placeholder="7">
+                        </div>
+                    </div>
+
+                    <div *ngIf="formError">
+                        <strong class="text-danger">{{formError}}</strong>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" (click)="resetForm()" class="btn btn-secondary ml-3">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let habit of habitList">
+        <div class="card mb-2 mt-2 pr-2 pl-2">
+            <div class="card-body" data-toggle="collapse" attr.data-target="#description-{{habit.id}}"
+                attr.aria-controls="description-{{habit.id}}">
+                {{habit.title}}
+            </div>
+
+            <div class="collapse" attr.id="description-{{habit.id}}">
+                <div class="card-body" id="habitDescriptionCard">
+
+                    <div style="margin-left: 8%;" *ngIf="habit.description; else noDescription">
+                        {{habit.description}}
+                    </div>
+
+                    <ng-template style="margin-left: 8%;" #noDescription>
+                        No Description
+                    </ng-template>
+
+                    <app-journal [habitId]="habit.id"></app-journal>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

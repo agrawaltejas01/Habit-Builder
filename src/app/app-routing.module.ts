@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+import { PanelComponent } from './habit-builder/panel/panel.component';
+
+const routes: Routes = [
+  {
+    path : "**",
+    component : PanelComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
