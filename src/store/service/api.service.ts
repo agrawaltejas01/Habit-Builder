@@ -10,7 +10,9 @@ import { JournalSchema } from '../schema/journal-schema';
 })
 export class ApiService {
 
-  baseUrl : string = "http://127.0.0.1:8000/";
+  // baseUrl : string = "http://127.0.0.1:8000/";
+  baseUrl : string = "http://3.7.254.219:8000/";
+
   constructor
     (
       private http: HttpClient,
