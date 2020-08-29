@@ -108,7 +108,7 @@ export class JournalComponent implements OnInit {
 
         // Update completed 
         this.completedFrequency += this.currentFrequency;
-        this.currentTime += this.currentTime;
+        this.completedTime += this.currentTime;
 
         // Check progress
         this.checkProgress();
