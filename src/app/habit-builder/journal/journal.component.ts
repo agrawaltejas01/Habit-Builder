@@ -100,7 +100,7 @@ export class JournalComponent implements OnInit {
         let journalEntry: JournalSchema = {
           date: new Date(),
           time: this.currentTime,
-          frequency: this.completedFrequency
+          frequency: this.currentFrequency
         };
 
         // Add in weekly Journal
